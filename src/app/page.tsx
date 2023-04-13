@@ -4,7 +4,8 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import Image from 'next/image';
 
-import { useEffect, useState } from 'react';
+import { stripe } from '@/lib/stripe';
+import { useQuery } from '@tanstack/react-query';
 import camiseta1 from '../assets/camisetas1.png';
 import camiseta2 from '../assets/camisetas2.png';
 import camiseta3 from '../assets/camisetas3.png';
@@ -17,17 +18,21 @@ export default function Home() {
     },
   });
 
-  const [list, setList] = useState<number[]>();
+  const fetchProduct = async () => {
+    const response = await stripe.products.list();
+    console.log(response.data);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setList([1, 2, 3]);
-    }, 2000);
-  }, []);
+    return response;
+  };
+
+  const { status, data, error } = useQuery({
+    queryKey: ['products'],
+    queryFn: fetchProduct,
+  });
+  console.log(data);
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
-      <pre>{JSON.stringify(list)}</pre>
       <Product className="keen-slider__slide">
         <Image src={camiseta1} alt="" width={520} height={480} />
         <footer>
