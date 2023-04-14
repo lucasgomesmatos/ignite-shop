@@ -20,7 +20,6 @@ export default function Home() {
 
   const fetchProduct = async () => {
     const response = await stripe.products.list();
-    console.log(response.data);
 
     return response;
   };
