@@ -3,6 +3,10 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-}
 
-module.exports = nextConfig
+  images: {
+    domains: ['files.stripe.com'],
+  },
+};
+
+module.exports = nextConfig;

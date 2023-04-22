@@ -4,11 +4,8 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import Image from 'next/image';
 
-import { stripe } from '@/lib/stripe';
+import { getData } from '@/lib/getDate';
 import { useQuery } from '@tanstack/react-query';
-import camiseta1 from '../assets/camisetas1.png';
-import camiseta2 from '../assets/camisetas2.png';
-import camiseta3 from '../assets/camisetas3.png';
 
 export default function Home() {
   const [sliderRef] = useKeenSlider({
@@ -18,48 +15,29 @@ export default function Home() {
     },
   });
 
-  const fetchProduct = async () => {
-    const response = await stripe.products.list();
-
-    return response;
-  };
-
-  const { status, data, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['products'],
-    queryFn: fetchProduct,
+    queryFn: getData,
   });
-  console.log(data);
 
   return (
     <HomeContainer ref={sliderRef} className="keen-slider">
-      <Product className="keen-slider__slide">
-        <Image src={camiseta1} alt="" width={520} height={480} />
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-      <Product className="keen-slider__slide">
-        <Image src={camiseta2} alt="" width={520} height={480} />
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-      <Product className="keen-slider__slide">
-        <Image src={camiseta3} alt="" width={520} height={480} />
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
-      <Product className="keen-slider__slide">
-        <Image src={camiseta3} alt="" width={520} height={480} />
-        <footer>
-          <strong>Camiseta x</strong>
-          <span>R$ 79,90</span>
-        </footer>
-      </Product>
+      {data?.map((product) => (
+        <Product key={product.id} className="keen-slider__slide">
+          <Image
+            placeholder="blur"
+            blurDataURL={product.imageUrl}
+            src={product.imageUrl}
+            alt=""
+            width={520}
+            height={480}
+          />
+          <footer>
+            <strong>{product.name}</strong>
+            <span>R$ {product.price}</span>
+          </footer>
+        </Product>
+      ))}
     </HomeContainer>
   );
 }
