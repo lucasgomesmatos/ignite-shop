@@ -6,6 +6,7 @@ interface ProductProps {
   name: string;
   imageUrl: string;
   price: number | string | null;
+  description?: string | null;
 }
 
 export const getData = async (): Promise<ProductProps[]> => {
@@ -28,4 +29,23 @@ export const getData = async (): Promise<ProductProps[]> => {
   });
 
   return products;
+};
+
+export const getDataProduct = async (id: string): Promise<ProductProps> => {
+  const product = await stripe.products.retrieve(id, {
+    expand: ['default_price'],
+  });
+
+  const price = product.default_price as Stripe.Price;
+
+  return {
+    id: product.id,
+    name: product.name,
+    imageUrl: product.images[0],
+    price: new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(price.unit_amount! / 100),
+    description: product.description,
+  };
 };
