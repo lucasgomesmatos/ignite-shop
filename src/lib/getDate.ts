@@ -7,6 +7,7 @@ interface ProductProps {
   imageUrl: string;
   price: number | string | null;
   description?: string | null;
+  defaultPriceId?: string;
 }
 
 export const getData = async (): Promise<ProductProps[]> => {
@@ -47,5 +48,6 @@ export const getDataProduct = async (id: string): Promise<ProductProps> => {
       currency: 'BRL',
     }).format(price.unit_amount! / 100),
     description: product.description,
+    defaultPriceId: price.id,
   };
 };
