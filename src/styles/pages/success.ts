@@ -1,54 +1,53 @@
-import { styled } from '..';
+import styled from 'styled-components';
 
-export const SuccessContainer = styled('main', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  margin: '0 auto',
-  height: 656,
+export const SuccessContainer = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: 656px;
 
-  h1: {
-    fontSize: '$2xl',
-    color: '$gray100',
-  },
+  h1 {
+    font-size: ${(props) => props.theme.fontSizes['2xl']};
+    color: ${(props) => props.theme.colors.gray100};
+  }
+  p {
+    font-size: ${(props) => props.theme.fontSizes.xl};
+    color: ${(props) => props.theme.colors.gray300};
+    max-width: 560px;
+    text-align: center;
+    margin-top: 2rem;
+    line-height: 1.4;
+  }
 
-  p: {
-    fontSize: '$xl',
-    color: '$gray300',
-    maxWidth: 560,
-    textAlign: 'center',
-    marginTop: '2rem',
-    lineHeight: 1.4,
-  },
+  a {
+    margin-top: 5rem;
+    font-size: ${(props) => props.theme.fontSizes.lg};
+    color: ${(props) => props.theme.colors.green500};
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
 
-  a: {
-    marginTop: '5rem',
-    display: 'block',
-    fontSize: '$lg',
-    color: '$green500',
-    textDecoration: 'none',
-    fontWeight: 'bold',
+    :hover {
+      color: ${(props) => props.theme.colors.green300};
+    }
+  }
+`;
 
-    '&:hover': {
-      color: '$green300',
-    },
-  },
-});
+export const ImageContainer = styled.div`
+  width: 100%;
+  max-width: 130px;
+  height: 145px;
+  background: linear-gradient(180deg, #1ea483 0%, #7465d4 100%);
+  border-radius: 8px;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4rem;
 
-export const ImageContainer = styled('div', {
-  width: '100%',
-  maxWidth: 130,
-  height: 145,
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  padding: '0.25rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginTop: '4rem',
-
-  img: {
-    objectFit: 'cover',
-  },
-});
+  img {
+    object-fit: cover;
+  }
+`;

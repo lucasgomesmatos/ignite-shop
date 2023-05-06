@@ -1,63 +1,59 @@
-import { styled } from '..';
+import styled from 'styled-components';
 
-export const HomeContainer = styled('main', {
-  display: 'flex',
-  width: '100%',
-  maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
-  marginLeft: 'auto',
-  minHeight: 656,
-});
+export const HomeContainer = styled.main`
+  display: flex;
+  width: 100%;
+  max-width: calc(100vw - ((100vw - 1180px) / 2));
+  margin-left: auto;
+  min-height: 656px;
+`;
 
-export const Product = styled('div', {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
-  borderRadius: 8,
-  cursor: 'pointer',
-  position: 'relative',
-  overflow: 'hidden',
+export const Product = styled.div`
+  background: linear-gradient(180deg, #1ea483 0%, #7465d4 100%);
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  img: {
-    objectFit: 'cover',
-  },
+  img {
+    object-fit: cover;
+  }
 
-  footer: {
-    position: 'absolute',
-    bottom: '.25rem',
-    left: '.25rem',
-    right: '.25rem',
-    padding: '2rem',
+  footer {
+    position: absolute;
+    bottom: 0.25rem;
+    left: 0.25rem;
+    right: 0.25rem;
+    padding: 2rem;
+    border-radius: 6px;
+    transform: translateY(110%);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.6);
 
-    borderRadius: 6,
+    strong {
+      font-size: ${(props) => props.theme.fontSizes.lg};
+      color: ${(props) => props.theme.colors.gray100};
+    }
 
-    transform: 'translateY(110%)',
-    opacity: 0,
-    transition: 'all .2s ease-in-out',
+    span {
+      font-size: ${(props) => props.theme.fontSizes.xl};
+      font-weight: bold;
+      color: ${(props) => props.theme.colors.green300};
+    }
+  }
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    background: 'rgba(0,0,0,0.6)',
-
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100',
-    },
-
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300',
-    },
-  },
-
-  '&:hover': {
-    footer: {
-      transform: 'translateY(0%)',
-      opacity: 1,
-    },
-  },
-});
+  :hover {
+    footer {
+      transform: translateY(0%);
+      opacity: 1;
+    }
+  }
+`;

@@ -1,18 +1,19 @@
 'use client';
 
 import { Header } from '@/components/header';
-import { globalStyles } from '@/styles/global';
+import { GlobalStyle } from '@/styles/global';
+import StyledComponentsRegistry from '@/styles/lib/styled-components';
 import { Container } from '@/styles/pages/app';
+import { defaultTheme } from '@/styles/theme/default';
+
 import { Roboto } from '@next/font/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { getCssText } from '../styles';
+import { ThemeProvider } from 'styled-components';
 
 const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '700'],
 });
-
-globalStyles();
 
 const queryClient = new QueryClient();
 
@@ -27,18 +28,19 @@ export default function RootLayout({
         <title>Ignite Shop</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style
-          id="stitches"
-          dangerouslySetInnerHTML={{ __html: getCssText() }}
-        />
       </head>
       <body className={roboto.className}>
-        <QueryClientProvider client={queryClient}>
-          <Container>
-            <Header />
-            {children}
-          </Container>
-        </QueryClientProvider>
+        <StyledComponentsRegistry>
+          <ThemeProvider theme={defaultTheme}>
+            <QueryClientProvider client={queryClient}>
+              <GlobalStyle />
+              <Container>
+                <Header />
+                {children}
+              </Container>
+            </QueryClientProvider>
+          </ThemeProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

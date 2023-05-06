@@ -1,3 +1,5 @@
+'use client';
+
 import { ImageContainer, SuccessContainer } from '@/styles/pages/success';
 import Link from 'next/link';
 

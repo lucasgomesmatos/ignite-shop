@@ -1,8 +1,8 @@
-import { styled } from '@/styles';
+import styled from 'styled-components';
 
-export const HeaderContainer = styled('header', {
-  padding: '2rem 0',
-  width: '100%',
-  maxWidth: '1180px',
-  margin: '0 auto',
-});
+export const HeaderContainer = styled.header`
+  padding: 2rem 0;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+`;
