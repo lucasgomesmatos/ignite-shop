@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/app/loading';
 import { getDataProduct } from '@/lib/getDate';
 import {
   ImageContainer,
@@ -40,28 +41,37 @@ export default function ProductId() {
     }
   };
 
+  if (isLoading) return <Loading />;
+
   return (
-    <ProductContainer>
-      <ImageContainer>
-        {product?.imageUrl && (
-          <Image
-            placeholder="blur"
-            blurDataURL={product.imageUrl}
-            src={product.imageUrl}
-            alt=""
-            width={520}
-            height={480}
-          />
-        )}
-      </ImageContainer>
-      <ProductDetails>
-        <h1>{product?.name}</h1>
-        <span>{product?.price}</span>
-        <p>{product?.description}</p>
-        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>
-          Comprar agora
-        </button>
-      </ProductDetails>
-    </ProductContainer>
+    <>
+      {!isLoading && (
+        <ProductContainer>
+          <ImageContainer>
+            {product?.imageUrl && (
+              <Image
+                placeholder="blur"
+                blurDataURL={product.imageUrl}
+                src={product.imageUrl}
+                alt=""
+                width={520}
+                height={480}
+              />
+            )}
+          </ImageContainer>
+          <ProductDetails>
+            <h1>{product?.name}</h1>
+            <span>{product?.price}</span>
+            <p>{product?.description}</p>
+            <button
+              disabled={isCreatingCheckoutSession}
+              onClick={handleBuyProduct}
+            >
+              Comprar agora
+            </button>
+          </ProductDetails>
+        </ProductContainer>
+      )}
+    </>
   );
 }
