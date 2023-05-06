@@ -10,6 +10,14 @@ interface ProductProps {
   defaultPriceId?: string;
 }
 
+interface SuccessProps {
+  customerName: string | null | undefined;
+  product: {
+    name: string;
+    imageUrl: string;
+  };
+}
+
 export const getData = async (): Promise<ProductProps[]> => {
   const response = await stripe.products.list({
     expand: ['data.default_price'],
@@ -49,5 +57,24 @@ export const getDataProduct = async (id: string): Promise<ProductProps> => {
     }).format(price.unit_amount! / 100),
     description: product.description,
     defaultPriceId: price.id,
+  };
+};
+
+export const getQuerySession = async (
+  sessionId: string | null,
+): Promise<SuccessProps> => {
+  const session = await stripe.checkout.sessions.retrieve(String(sessionId), {
+    expand: ['line_items', 'line_items.data.price.product'],
+  });
+
+  const customerName = session.customer_details?.name;
+  const product = session.line_items?.data[0].price?.product as Stripe.Product;
+
+  return {
+    customerName,
+    product: {
+      name: product.name,
+      imageUrl: product.images[0],
+    },
   };
 };
